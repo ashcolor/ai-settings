@@ -46,6 +46,7 @@ New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.codex\config.toml" -Tar
 | **video-to-mp4** | 動画を MP4 に一括変換 | H.264/H.265 エンコード、解像度・品質指定 | ffmpeg |
 | **notion** | Notion ワークスペース操作 | ページ作成・更新、DB 操作、検索 | ncli |
 | **playwright-cli** | ブラウザ自動操作 | Web テスト、フォーム入力、スクリーンショット | playwright-cli |
+| **gws** | Google Workspace CLI 操作 | Drive, Gmail, Calendar, Sheets, Docs, Chat, Tasks 等 | gws |
 | **gh-self-merge** | develop → main の PR 作成＆マージ | セルフマージワークフロー | gh |
 
 ## ディレクトリ構成
@@ -54,6 +55,7 @@ New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.codex\config.toml" -Tar
 ai-settings/
 ├── .agents/
 │   └── skills/          # カスタムスキル本体
+│       ├── gws/
 │       ├── gh-self-merge/
 │       ├── image-resize/
 │       ├── image-to-webp/
