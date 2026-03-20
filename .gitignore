@@ -1,0 +1,7 @@
+node_modules/
+
+# Claude Code
+.claude/settings.local.json
+
+# Codex
+.codex/skills/.system/
