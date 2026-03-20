@@ -1,11 +1,11 @@
 ---
-name: self-merge
+name: gh-self-merge
 description: Create a PR from develop to main and merge it
 disable-model-invocation: true
 allowed-tools: Bash(git *), Bash(gh *)
 ---
 
-# self-merge
+# gh-self-merge
 
 developブランチからmainブランチへのPR作成とマージを行う。
 
