@@ -1,42 +1,106 @@
 {
-  "env": {
-  },
+  "env": {},
   "permissions": {
     "allow": [
+      "Bash(npx:*)",
+      "Bash(npx skills *)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm install)",
+      "Bash(pnpm run dev:*)",
+      "Bash(pnpm run type-check:*)",
+      "Bash(pnpm run build:*)",
+      "Bash(pnpm run format:*)",
+      "Bash(pnpm run lint:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(ls:*)",
       "Bash(git status*)",
       "Bash(git log*)",
       "Bash(git diff*)",
       "Bash(git show*)",
       "Bash(git branch*)",
       "Bash(git remote*)",
+      "Bash(git fetch:*)",
+      "Bash(git stash:*)",
+      "Bash(git pull:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git add:*)",
       "Bash(node *resize.mjs*)",
       "Bash(node *to-webp.mjs*)",
       "Bash(npm root*)",
       "Bash(npm install -g sharp)",
-      "Bash(pnpm install)",
-      "Bash(npx skills *)",
       "Bash(gh *)",
       "Bash(ncli *)",
+      "Bash(pkill:*)",
+      "Bash(xargs:*)",
+      "Bash(az boards:*)",
+      "Bash(az repos:*)",
       "Bash(playwright-cli:*)",
       "WebFetch(*)",
       "Edit",
-      "Write"
+      "Write",
+      "Skill(*)",
+      "mcp__figma__get_design_context",
+      "mcp__figma__get_screenshot",
+      "mcp__plugin_claude-mem_mcp-search__search",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__list_console_messages",
+      "mcp__chrome-devtools__get_console_message",
+      "mcp__chrome-devtools__list_network_requests",
+      "mcp__chrome-devtools__resize_page"
     ],
-    "deny": [],
-    "ask": []
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(rm -rf:*)",
+      "Write(.env*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm remove:*)",
+      "Bash(psql:*)",
+      "Bash(mysql:*)",
+      "Bash(mongod:*)"
+    ],
+    "ask": [
+      "Bash(rm:*)",
+      "Bash(curl:*)",
+      "Bash(chmod +x:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git merge:*)",
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(git rebase:*)",
+      "Bash(git tag:*)",
+      "Bash(npm publish:*)"
+    ]
   },
   "hooks": {
-    "Stop": [
+    "Notification": [
       {
-        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"& { . 'C:/Users/ashco/.claude/toast-notify.ps1' }\""
+            "command": "node .claude/hooks/notify.mjs Processing..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/notify.mjs Completed"
           }
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
   },
   "enabledPlugins": {
     "example-skills@anthropic-agent-skills": true
