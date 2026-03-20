@@ -1,0 +1,47 @@
+{
+  "env": {
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git show*)",
+      "Bash(git branch*)",
+      "Bash(git remote*)",
+      "Bash(node *resize.mjs*)",
+      "Bash(node *to-webp.mjs*)",
+      "Bash(npm root*)",
+      "Bash(npm install -g sharp)",
+      "Bash(pnpm install)",
+      "Bash(npx skills *)",
+      "Bash(gh *)",
+      "Bash(ncli *)",
+      "Bash(playwright-cli:*)",
+      "WebFetch(*)",
+      "Edit",
+      "Write"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"& { . 'C:/Users/ashco/.claude/toast-notify.ps1' }\""
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": true
+  },
+  "language": "日本語（タメ口）",
+  "effortLevel": "high",
+  "autoUpdatesChannel": "latest"
+}
