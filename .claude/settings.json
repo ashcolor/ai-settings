@@ -3,6 +3,7 @@
   "permissions": {
     "allow": [
       "Bash(npx:*)",
+      "Bash(npm run:*)",
       "Bash(npx skills *)",
       "Bash(pnpm install:*)",
       "Bash(pnpm install)",
