@@ -14,8 +14,9 @@ developブランチからmainブランチへのPR作成とマージを行う。
 2. developブランチにいることを確認
 3. `git log main..develop --oneline`でmainに含まれていないコミットを確認
 4. PRタイトルと本文を作成
-   - タイトルは変更内容を簡潔に（70文字以内）
-   - 本文はSummaryのみ（個人プロジェクトのためTest planは不要）
+   - タイトルは変更内容を簡潔に
+   - 本文はSummaryのみ
+   - 「Generated with Claude Code」などのフッターは付けない
 5. `gh pr create --base main --head develop`でPR作成
 6. `gh pr merge --merge`でそのままマージ
 
