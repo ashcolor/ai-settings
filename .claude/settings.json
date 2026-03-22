@@ -123,5 +123,9 @@
   },
   "language": "日本語（タメ口）",
   "effortLevel": "high",
-  "autoUpdatesChannel": "latest"
+  "autoUpdatesChannel": "latest",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }
 }

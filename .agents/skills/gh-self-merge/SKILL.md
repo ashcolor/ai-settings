@@ -16,10 +16,8 @@ developブランチからmainブランチへのPR作成とマージを行う。
 4. PRタイトルと本文を作成
    - タイトルは変更内容を簡潔に
    - 本文はSummaryのみ
-   - 「Generated with Claude Code」などのフッターは付けない
 5. `gh pr create --base main --head develop`でPR作成
 6. `gh pr merge --merge`でそのままマージ
-
 
 ## 注意
 
