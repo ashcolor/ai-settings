@@ -1,5 +1,9 @@
 {
   "env": {},
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "permissions": {
     "allow": [
       "Bash(npx:*)",
@@ -50,7 +54,8 @@
       "mcp__chrome-devtools__list_console_messages",
       "mcp__chrome-devtools__get_console_message",
       "mcp__chrome-devtools__list_network_requests",
-      "mcp__chrome-devtools__resize_page"
+      "mcp__chrome-devtools__resize_page",
+      "mcp__figma__get_metadata"
     ],
     "deny": [
       "Bash(sudo:*)",
@@ -123,9 +128,5 @@
   },
   "language": "日本語（タメ口）",
   "effortLevel": "high",
-  "autoUpdatesChannel": "latest",
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  }
+  "autoUpdatesChannel": "latest"
 }
