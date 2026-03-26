@@ -81,13 +81,15 @@
       "Bash(npm publish:*)"
     ]
   },
+  "model": "opus",
+  "enableAllProjectMcpServers": true,
   "hooks": {
     "Notification": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/notify.mjs Processing..."
+            "command": "node \"$HOME/.claude/hooks/notify.mjs\" Processing..."
           }
         ]
       }
@@ -127,8 +129,6 @@
     }
   },
   "language": "日本語（タメ口）",
-  "effortLevel": "high",
-  "autoUpdatesChannel": "latest",
-  "model": "opus",
-  "enableAllProjectMcpServers": true
+  "effortLevel": "medium",
+  "autoUpdatesChannel": "latest"
 }
