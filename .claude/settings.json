@@ -128,5 +128,7 @@
   },
   "language": "日本語（タメ口）",
   "effortLevel": "high",
-  "autoUpdatesChannel": "latest"
+  "autoUpdatesChannel": "latest",
+  "model": "opus",
+  "enableAllProjectMcpServers": true
 }
