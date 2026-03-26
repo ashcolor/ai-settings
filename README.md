@@ -12,6 +12,7 @@ Claude Code / Codex の設定ファイルとカスタムスキルを管理する
 |---|---|
 | `~/.claude/settings.json` | `.claude/settings.json` |
 | `~/.claude/skills/` | `.agents/skills/` |
+| `~/.claude/hooks/` | `.agents/hooks/` |
 | `~/.codex/config.toml` | `.codex/config.toml` |
 
 ### Mac / Linux
@@ -19,6 +20,7 @@ Claude Code / Codex の設定ファイルとカスタムスキルを管理する
 ```bash
 ln -sf <repo>/.claude/settings.json ~/.claude/settings.json
 ln -sf <repo>/.agents/skills ~/.claude/skills
+ln -sf <repo>/.agents/hooks ~/.claude/hooks
 ln -sf <repo>/.codex/config.toml ~/.codex/config.toml
 ```
 
@@ -30,10 +32,20 @@ ln -sf <repo>/.codex/config.toml ~/.codex/config.toml
 # PowerShell（管理者）
 New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\settings.json" -Target "<repo>\.claude\settings.json"
 New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\skills" -Target "<repo>\.agents\skills"
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\hooks" -Target "<repo>\.agents\hooks"
 New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.codex\config.toml" -Target "<repo>\.codex\config.toml"
 ```
 
 > `<repo>` はこのリポジトリのクローン先の絶対パスに置換
+
+## MCP サーバーのインストール
+
+```bash
+claude mcp add --transport http figma https://mcp.figma.com/mcp
+claude mcp add chrome -- npx -y chrome-devtools-mcp@latest
+claude mcp add prisma -- npx -y prisma mcp
+claude mcp add postgres -- npx -y @modelcontextprotocol/server-postgres <DATABASE_URL>
+```
 
 ## スキル一覧
 
@@ -54,6 +66,8 @@ New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.codex\config.toml" -Tar
 ```
 ai-settings/
 ├── .agents/
+│   ├── hooks/           # フック本体
+│   │   └── notify.mjs
 │   └── skills/          # カスタムスキル本体
 │       ├── gws/
 │       ├── gh-self-merge/
@@ -64,7 +78,8 @@ ai-settings/
 │       └── video-to-mp4/
 ├── .claude/
 │   ├── settings.json    # Claude Code 設定
-│   └── skills -> ../.agents/skills/  # シンボリックリンク
+│   ├── hooks -> ../.agents/hooks/   # シンボリックリンク
+│   └── skills -> ../.agents/skills/ # シンボリックリンク
 ├── .codex/
 │   └── config.toml      # Codex 設定
 └── .gitignore
