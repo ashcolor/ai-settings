@@ -8,20 +8,39 @@ Claude Code / Codex の設定ファイルとカスタムスキルを管理する
 
 > **注意:** Windows では管理者権限のターミナル、または開発者モードの有効化が必要。
 
+### 設定ファイル
+
 | リンク先 | リンク元（このリポジトリ） |
 |---|---|
 | `~/.claude/settings.json` | `.claude/settings.json` |
-| `~/.claude/skills/` | `.agents/skills/` |
-| `~/.claude/hooks/` | `.agents/hooks/` |
 | `~/.codex/config.toml` | `.codex/config.toml` |
+
+### skills / hooks
+
+`.agents/skills/` と `.agents/hooks/` を以下の 2 箇所に展開する。
+
+| リンク先 | リンク元（このリポジトリ） |
+|---|---|
+| `~/.claude/skills` | `.agents/skills/` |
+| `~/.claude/hooks` | `.agents/hooks/` |
+| `~/.agent/skills` | `.agents/skills/` |
+| `~/.agent/hooks` | `.agents/hooks/` |
 
 ### Mac / Linux
 
 ```bash
+# 設定ファイル
 ln -sf <repo>/.claude/settings.json ~/.claude/settings.json
+ln -sf <repo>/.codex/config.toml ~/.codex/config.toml
+
+# skills / hooks（~/.claude）
 ln -sf <repo>/.agents/skills ~/.claude/skills
 ln -sf <repo>/.agents/hooks ~/.claude/hooks
-ln -sf <repo>/.codex/config.toml ~/.codex/config.toml
+
+# skills / hooks（~/.agent）
+mkdir -p ~/.agent
+ln -sf <repo>/.agents/skills ~/.agent/skills
+ln -sf <repo>/.agents/hooks ~/.agent/hooks
 ```
 
 ### Windows
@@ -30,10 +49,19 @@ ln -sf <repo>/.codex/config.toml ~/.codex/config.toml
 
 ```powershell
 # PowerShell（管理者）
+
+# 設定ファイル
 New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\settings.json" -Target "<repo>\.claude\settings.json"
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.codex\config.toml" -Target "<repo>\.codex\config.toml"
+
+# skills / hooks（~/.claude）
 New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\skills" -Target "<repo>\.agents\skills"
 New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\hooks" -Target "<repo>\.agents\hooks"
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.codex\config.toml" -Target "<repo>\.codex\config.toml"
+
+# skills / hooks（~/.agent）
+New-Item -ItemType Directory -Path "$env:USERPROFILE\.agent" -Force
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.agent\skills" -Target "<repo>\.agents\skills"
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.agent\hooks" -Target "<repo>\.agents\hooks"
 ```
 
 > `<repo>` はこのリポジトリのクローン先の絶対パスに置換
@@ -53,13 +81,16 @@ claude mcp add postgres -- npx -y @modelcontextprotocol/server-postgres <DATABAS
 
 | スキル | 説明 | 主な用途 | 依存 |
 |---|---|---|---|
+| **gh-self-merge** | develop → main の PR 作成＆マージ | セルフマージワークフロー | gh |
+| **git-create-branch-commit-push** | ブランチ作成・コミット・プッシュ | 作業完了後のコミットフロー | git |
+| **gws** | Google Workspace CLI 操作 | Drive, Gmail, Calendar, Sheets, Docs, Chat, Tasks 等 | gws |
+| **image-generation** | Gemini API で画像生成 | プロンプトからの画像生成 | Gemini API |
 | **image-resize** | 画像の一括リサイズ | 幅・高さ指定、フォーマット変換、品質調整 | sharp |
 | **image-to-webp** | 画像を WebP に一括変換 | Web 配信用の軽量化 | sharp |
-| **video-to-mp4** | 動画を MP4 に一括変換 | H.264/H.265 エンコード、解像度・品質指定 | ffmpeg |
 | **notion** | Notion ワークスペース操作 | ページ作成・更新、DB 操作、検索 | ncli |
 | **playwright-cli** | ブラウザ自動操作 | Web テスト、フォーム入力、スクリーンショット | playwright-cli |
-| **gws** | Google Workspace CLI 操作 | Drive, Gmail, Calendar, Sheets, Docs, Chat, Tasks 等 | gws |
-| **gh-self-merge** | develop → main の PR 作成＆マージ | セルフマージワークフロー | gh |
+| **screenshot** | 開発サーバーのスクリーンショット取得 | PR の視覚的確認資料 | — |
+| **video-to-mp4** | 動画を MP4 に一括変換 | H.264/H.265 エンコード、解像度・品質指定 | ffmpeg |
 
 ## ディレクトリ構成
 
@@ -69,12 +100,15 @@ ai-settings/
 │   ├── hooks/           # フック本体
 │   │   └── notify.mjs
 │   └── skills/          # カスタムスキル本体
-│       ├── gws/
 │       ├── gh-self-merge/
+│       ├── git-create-branch-commit-push/
+│       ├── gws/
+│       ├── image-generation/
 │       ├── image-resize/
 │       ├── image-to-webp/
 │       ├── notion/
 │       ├── playwright-cli/
+│       ├── screenshot/
 │       └── video-to-mp4/
 ├── .claude/
 │   ├── settings.json    # Claude Code 設定
@@ -83,4 +117,10 @@ ai-settings/
 ├── .codex/
 │   └── config.toml      # Codex 設定
 └── .gitignore
+
+# 展開先のシンボリックリンク（ホームディレクトリ）
+~/.claude/skills  -> <repo>/.agents/skills/
+~/.claude/hooks   -> <repo>/.agents/hooks/
+~/.agent/skills   -> <repo>/.agents/skills/
+~/.agent/hooks    -> <repo>/.agents/hooks/
 ```
