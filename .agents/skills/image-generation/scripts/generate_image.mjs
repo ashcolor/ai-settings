@@ -54,6 +54,11 @@ const MODELS = {
 
 const VALID_ASPECTS = ['1:1', '9:16', '16:9', '3:4', '4:3', '3:2', '2:3', '5:4', '4:5', '21:9'];
 
+// Windows の libuv バグ回避: process.exit() の前にイベントループを空にする
+function exit(code) {
+  setTimeout(() => process.exit(code), 100);
+}
+
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 
 // ── APIキー取得 ───────────────────────────────────
@@ -78,7 +83,7 @@ function loadApiKey() {
   }
 
   console.error('❌ API key not found. Set GEMINI_API_KEY env var or add it to .mcp.json');
-  process.exit(1);
+  exit(1);
 }
 
 // ── 引数パース ────────────────────────────────────
@@ -117,11 +122,11 @@ function parseArgs(argv) {
         break;
       case '--help': case '-h':
         printHelp();
-        process.exit(0);
+        exit(0);
       default:
         console.error(`⚠️  Unknown argument: ${arg}`);
         printHelp();
-        process.exit(1);
+        exit(1);
     }
     i++;
   }
@@ -130,20 +135,20 @@ function parseArgs(argv) {
   if (!args.prompt) {
     console.error('❌ --prompt (-p) is required');
     printHelp();
-    process.exit(1);
+    exit(1);
   }
   if (!args.output) {
     console.error('❌ --output (-o) is required');
     printHelp();
-    process.exit(1);
+    exit(1);
   }
   if (!args.modelId && !MODELS[args.model]) {
     console.error(`❌ Invalid model: ${args.model}. Use: ${Object.keys(MODELS).join(', ')}`);
-    process.exit(1);
+    exit(1);
   }
   if (!VALID_ASPECTS.includes(args.aspect)) {
     console.error(`❌ Invalid aspect: ${args.aspect}. Use: ${VALID_ASPECTS.join(', ')}`);
-    process.exit(1);
+    exit(1);
   }
 
   return args;
@@ -171,7 +176,7 @@ function imageToBase64(imagePath) {
   const resolved = path.isAbsolute(imagePath) ? imagePath : path.resolve(PROJECT_ROOT, imagePath);
   if (!fs.existsSync(resolved)) {
     console.error(`❌ Reference image not found: ${resolved}`);
-    process.exit(1);
+    exit(1);
   }
   return fs.readFileSync(resolved).toString('base64');
 }
@@ -218,7 +223,7 @@ async function generateImage({ prompt, refs, output, model, modelId, aspect, api
     const errorText = await response.text();
     console.error(`\n❌ API Error: ${response.status}`);
     console.error(errorText.substring(0, 500));
-    process.exit(1);
+    exit(1);
   }
 
   const responseText = await response.text();
@@ -251,11 +256,11 @@ async function generateImage({ prompt, refs, output, model, modelId, aspect, api
     } else {
       console.error(`\n❌ No image data returned.`);
       if (textResponse) console.error(`💬 Model: ${textResponse}`);
-      process.exit(1);
+      exit(1);
     }
   } catch (e) {
     console.error(`\n❌ Parse error: ${e.message}`);
-    process.exit(1);
+    exit(1);
   }
 }
 
@@ -278,5 +283,5 @@ async function main() {
 
 main().catch((e) => {
   console.error(`\n❌ ${e.message}`);
-  process.exit(1);
+  exit(1);
 });
