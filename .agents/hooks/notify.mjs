@@ -25,10 +25,10 @@ if (os === "darwin") {
     `osascript -e 'display notification "${escaped}" with title "${title}"'`
   );
 } else if (os === "win32") {
-  const escaped = message.replace(/'/g, "''").replace(/`/g, "``");
-  execSync(
-    `powershell -Command "Add-Type -AssemblyName System.Windows.Forms; $n = New-Object System.Windows.Forms.NotifyIcon; $n.Icon = [System.Drawing.SystemIcons]::Information; $n.Visible = $true; $n.ShowBalloonTip(5000, '${title}', '${escaped}', 'Info'); Start-Sleep 6; $n.Dispose()"`
-  );
+  const clean = message.replace(/[\r\n]+/g, " ");
+  const ps = `Add-Type -AssemblyName System.Windows.Forms; $n = New-Object System.Windows.Forms.NotifyIcon; $n.Icon = [System.Drawing.SystemIcons]::Information; $n.Visible = $true; $n.ShowBalloonTip(5000, ${JSON.stringify(title)}, ${JSON.stringify(clean)}, 'Info'); Start-Sleep 6; $n.Dispose()`;
+  const encoded = Buffer.from(ps, "utf16le").toString("base64");
+  execSync(`powershell -EncodedCommand ${encoded}`);
 } else {
   // Linux
   try {
