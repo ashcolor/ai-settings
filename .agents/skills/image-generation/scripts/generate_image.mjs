@@ -40,6 +40,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { exec } from 'child_process';
 
 // ── 定数 ──────────────────────────────────────────
 
@@ -253,6 +254,15 @@ async function generateImage({ prompt, refs, output, model, modelId, aspect, api
       fs.writeFileSync(outputPath, Buffer.from(imageData, 'base64'));
       console.log(`\n✅ Saved: ${outputPath}`);
       if (textResponse) console.log(`💬 Model: ${textResponse}`);
+
+      // 画像をデフォルトビューアで自動プレビュー
+      const platform = process.platform;
+      const openCmd = platform === 'win32' ? `start "" "${outputPath}"`
+                    : platform === 'darwin' ? `open "${outputPath}"`
+                    : `xdg-open "${outputPath}"`;
+      exec(openCmd, (err) => {
+        if (err) console.error(`⚠️  Preview failed: ${err.message}`);
+      });
     } else {
       console.error(`\n❌ No image data returned.`);
       if (textResponse) console.error(`💬 Model: ${textResponse}`);
