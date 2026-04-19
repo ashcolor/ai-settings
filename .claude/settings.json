@@ -83,7 +83,6 @@
       "Bash(npm publish:*)"
     ]
   },
-  "model": "opus",
   "enableAllProjectMcpServers": true,
   "hooks": {
     "Notification": [
@@ -132,6 +131,6 @@
     }
   },
   "language": "日本語（タメ口）",
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "autoUpdatesChannel": "latest"
 }
