@@ -61,7 +61,11 @@
       "WebSearch",
       "mcp__chrome__navigate_page",
       "mcp__chrome__take_screenshot",
-      "Bash(codex exec --dangerously-bypass-approvals-and-sandbox:*)"
+      "Bash(codex exec --dangerously-bypass-approvals-and-sandbox:*)",
+      "mcp__chrome__evaluate_script",
+      "mcp__chrome__list_console_messages",
+      "mcp__chrome__take_snapshot",
+      "mcp__chrome__new_page"
     ],
     "deny": [
       "Bash(sudo:*)",
@@ -87,6 +91,7 @@
       "Bash(npm publish:*)"
     ]
   },
+  "model": "opus",
   "enableAllProjectMcpServers": true,
   "hooks": {
     "Notification": [
@@ -135,10 +140,9 @@
     }
   },
   "language": "日本語（タメ口）",
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "autoUpdatesChannel": "latest",
   "theme": "light-daltonized",
   "remoteControlAtStartup": true,
-  "inputNeededNotifEnabled": true,
-  "model": "opus"
+  "inputNeededNotifEnabled": true
 }
