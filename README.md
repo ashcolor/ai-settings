@@ -12,7 +12,6 @@ Claude Code / Codex の設定ファイルとカスタムスキルを管理する
 
 | リンク先 | リンク元（このリポジトリ） |
 |---|---|
-| `~/.claude/CLAUDE.md` | `.claude/CLAUDE.md` |
 | `~/.claude/settings.json` | `.claude/settings.json` |
 | `~/.codex/config.toml` | `.codex/config.toml` |
 
@@ -31,7 +30,6 @@ Claude Code / Codex の設定ファイルとカスタムスキルを管理する
 
 ```bash
 # 設定ファイル
-ln -sf <repo>/.claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -sf <repo>/.claude/settings.json ~/.claude/settings.json
 ln -sf <repo>/.codex/config.toml ~/.codex/config.toml
 
@@ -53,7 +51,6 @@ ln -sf <repo>/.agents/hooks ~/.agent/hooks
 # PowerShell（管理者）
 
 # 設定ファイル
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\CLAUDE.md" -Target "<repo>\.claude\CLAUDE.md"
 New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\settings.json" -Target "<repo>\.claude\settings.json"
 New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.codex\config.toml" -Target "<repo>\.codex\config.toml"
 
@@ -114,7 +111,6 @@ ai-settings/
 │       ├── screenshot/
 │       └── video-to-mp4/
 ├── .claude/
-│   ├── CLAUDE.md         # Claude Code 共通指示
 │   ├── settings.json    # Claude Code 設定
 │   ├── hooks -> ../.agents/hooks/   # シンボリックリンク
 │   └── skills -> ../.agents/skills/ # シンボリックリンク
