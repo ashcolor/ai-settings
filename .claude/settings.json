@@ -124,7 +124,8 @@
     "example-skills@anthropic-agent-skills": true,
     "discord@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
-    "codex@openai-codex": true
+    "codex@openai-codex": true,
+    "slack@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {
